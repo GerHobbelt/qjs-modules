@@ -1,12 +1,13 @@
 macro(find_quickjs)
   include(CheckIncludeFile)
 
-  if(ARGN)
-    if(EXISTS "${ARGN}")
-      set(QUICKJS_PREFIX "${ARGN}")
-    endif(EXISTS "${ARGN}")
-  endif(ARGN)
-
+  #if(ARGN)
+  #  if(EXISTS "${ARGN}")
+  #    set(QUICKJS_PREFIX "${ARGN}")
+  #  endif(EXISTS "${ARGN}")
+  #endif(ARGN)
+  set(QUICKJS_PREFIX "../quickjs")
+  
   if(NOT QUICKJS_PREFIX)
     find_file(
       QUICKJS_H quickjs.h
