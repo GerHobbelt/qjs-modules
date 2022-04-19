@@ -6,7 +6,7 @@ macro(find_quickjs)
   #    set(QUICKJS_PREFIX "${ARGN}")
   #  endif(EXISTS "${ARGN}")
   #endif(ARGN)
-  set(QUICKJS_PREFIX "../quickjs")
+  set(QUICKJS_PREFIX "../")
   
   if(NOT QUICKJS_PREFIX)
     find_file(
