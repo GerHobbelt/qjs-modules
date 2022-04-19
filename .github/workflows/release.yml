@@ -38,7 +38,7 @@ jobs:
     - name: pull quickjs
       run: |
         pacman -S --noconfirm mingw-w64-i686-dlfcn
-        git clone https://github.com/mengmo/QuickJS-Windows-Build.git D:/a/qjs-modules/quickjs && cd D:/a/qjs-modules/quickjs && echo "#! /bin/sh" > /mingw32/bin/make && echo "\"mingw32-make\" \"\$@\"" >> /mingw32/bin/make && make LDEXPORT="-static -s"
+        git clone https://github.com/bellard/quickjs.git D:/a/qjs-modules/quickjs && cd D:/a/qjs-modules/quickjs && echo "#! /bin/sh" > /mingw32/bin/make && echo "\"mingw32-make\" \"\$@\"" >> /mingw32/bin/make && make LDEXPORT="-static -s"
     - name: Build it
       run: |
         cmake .
