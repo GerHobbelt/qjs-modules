@@ -22,8 +22,6 @@ jobs:
     - uses: actions/checkout@v1
       with:
         submodules: true
-    - name: pull quickjs
-      run: git clone https://github.com/bellard/quickjs.git D:/a/qjs-modules/quickjs
     - name: Setup MSYS2
       uses: msys2/setup-msys2@v2
       with:
@@ -37,6 +35,8 @@ jobs:
           toolchain:p
           cmake:p
           ninja:p
+    - name: pull quickjs
+      run: git clone https://github.com/bellard/quickjs.git D:/a/qjs-modules/quickjs
     - name: Build it
       run: |
         cmake .
