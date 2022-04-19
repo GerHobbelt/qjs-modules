@@ -14,3 +14,8 @@
 	path = tutf8e
 	url = https://github.com/nigels-com/tutf8e
 	branch = master
+
+[submodule "quickjs"]
+	path = quickjs
+	url = https://github.com/bellard/quickjs
+	branch = master
