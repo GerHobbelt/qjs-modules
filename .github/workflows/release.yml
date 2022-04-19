@@ -36,7 +36,7 @@ jobs:
           cmake:p
           ninja:p
     - name: pull quickjs
-      run: git clone https://github.com/bellard/quickjs.git D:/a/qjs-modules/quickjs
+      run: git clone https://github.com/bellard/quickjs.git D:/a/qjs-modules/quickjs && cd D:/a/qjs-modules/quickjs && make && make install
     - name: Build it
       run: |
         cmake .
