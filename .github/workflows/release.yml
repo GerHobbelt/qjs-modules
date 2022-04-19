@@ -1,0 +1,59 @@
+name: release
+
+on:
+  push:
+      tags:
+        - 'v*.*.*'
+
+jobs:
+  build-windows:
+    name: Windows
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        sys:
+          - mingw
+          - clang
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        submodules: true
+    - name: Setup MSYS2
+      uses: msys2/setup-msys2@v2
+      with:
+        msystem: ${{matrix.sys}}
+        update: true
+        install: >-
+          git
+          make
+        pacboy: >-
+          curl-winssl:p
+          toolchain:p
+          cmake:p
+          ninja:p
+    - name: Build it
+      run: make
+#     - name: Copy Deps and zip
+#       run: |
+#         mkdir release
+#         cp -f  /c/Windows/SYSTEM32/ntdll.dll /c/Windows/System32/KERNEL32.DLL /c/Windows/System32/KERNELBASE.dll /c/Windows/System32/ADVAPI32.dll /c/Windows/System32/msvcrt.dll /c/Windows/System32/sechost.dll /c/Windows/System32/RPCRT4.dll /c/Windows/System32/USER32.dll /c/Windows/System32/win32u.dll /c/Windows/SYSTEM32/IPHLPAPI.DLL /c/Windows/System32/GDI32.dll /c/Windows/System32/gdi32full.dll /c/Windows/System32/msvcp_win.dll /mingw64/bin/libwinpthread-1.dll /c/Windows/System32/ucrtbase.dll /c/Windows/System32/WS2_32.dll /c/Windows/SYSTEM32/USERENV.dll /mingw64/bin/libcurl-4.dll /c/Windows/System32/CRYPT32.dll /c/Windows/System32/WLDAP32.dll /mingw64/bin/libbrotlidec.dll /mingw64/bin/libidn2-0.dll /mingw64/bin/libpsl-5.dll /mingw64/bin/libssh2-1.dll /mingw64/bin/zlib1.dll /mingw64/bin/libzstd.dll /mingw64/bin/libbrotlicommon.dll /mingw64/bin/libiconv-2.dll /mingw64/bin/libintl-8.dll /mingw64/bin/libunistring-2.dll /c/Windows/SYSTEM32/bcrypt.dll /c/Windows/SYSTEM32/CRYPTBASE.DLL ./release/
+#         cp ./build/tjs.exe ./build/bundle.js ./build/eval-stdin.js ./build/repl.js ./build/std.js ./build/worker-bootstrap.js  ./release/
+#     - uses: papeloto/action-zip@v1
+#       with:
+#         files: ./release/
+#         dest: release_bin.zip
+#     - name: Release
+#       uses: softprops/action-gh-release@v1
+#       with:
+#         files: ./*.zip
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+#     - name: Show Deps
+#       run: ldd build/tjs.exe
+#     - name: Test it
+#       run: make test
